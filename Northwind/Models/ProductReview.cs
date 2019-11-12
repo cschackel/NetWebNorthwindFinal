@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,12 +8,14 @@ namespace Northwind.Models
 {
     public class ProductReview
     {
-        private int ReviewID { get; set; }
-        private Customer PostedBy { get; set; }
-        private DateTime PostedOn { get; set; }
-        private decimal Rating { get; set; }
-        private Product ForProduct { get; set; }
-        private String Title { get; set; }
-        private String Body { get; set; }
+        [Key]
+        public int Id { get; set; }
+        //private int CustomerId { get; set; }
+        public Customer PostedBy { get; set; }
+        public DateTime PostedOn { get; set; }
+        public decimal Rating { get; set; }
+        public Product ForProduct { get; set; }
+        public String Title { get; set; }
+        public String Body { get; set; }
     }
 }

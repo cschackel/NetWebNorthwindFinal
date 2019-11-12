@@ -17,5 +17,6 @@ namespace Northwind.Models
         public bool Discontinued { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public ICollection<ProductReview> Reviews { get; set; }
     }
 }

@@ -17,5 +17,8 @@ namespace Northwind.Models
         public DbSet<Discount> Discounts { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
+        //public DbSet<Test> Tests { get; set; }
+
+        public DbSet<ProductReview> ProductReviews { get; set; }
     }
 }

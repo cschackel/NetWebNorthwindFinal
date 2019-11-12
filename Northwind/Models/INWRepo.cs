@@ -13,8 +13,12 @@ namespace Northwind.Models
 
         IQueryable<Customer> Customers { get; }
 
+        IQueryable<ProductReview> ProductReviews { get; }
+
         void EditCustomer(Customer customer);
         void addCustomer(Customer newCustomer);
+
+        void addReview(ProductReview productReview);
         
 
     }

@@ -20,9 +20,17 @@ namespace Northwind.Models
 
         public IQueryable<Customer> Customers => context.Customers;
 
+        public IQueryable<ProductReview> ProductReviews => context.ProductReviews;
+
         public void addCustomer(Customer newCustomer)
         {
             context.Customers.Add(newCustomer);
+            context.SaveChanges();
+        }
+
+        public void addReview(ProductReview productReview)
+        {
+            context.ProductReviews.Add(productReview);
             context.SaveChanges();
         }
 
