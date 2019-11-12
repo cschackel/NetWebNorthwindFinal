@@ -34,5 +34,12 @@ namespace Northwind.Controllers
         {
             return View(repo.Discounts.Where(d => d.StartTime <= DateTime.Now && d.EndTime >= DateTime.Now).OrderByDescending(d => d.DiscountPercent));
         }
+
+        public IActionResult Product(int id)
+        {
+            Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
+            return View(product);
+        }
+        
     }
 }
