@@ -40,6 +40,11 @@ namespace Northwind.Controllers
             Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
             return View(product);
         }
+
+        public IActionResult Test()
+        {
+            return View();
+        }
         
     }
 }
