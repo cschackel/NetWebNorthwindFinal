@@ -23,6 +23,7 @@ namespace Northwind.Models
         [Required]
         public string Email { get; set; }
 
+        public ICollection<Order> Orders { get; set; }
         public ICollection<ProductReview> Reviews { get; set; }
     }
 }
