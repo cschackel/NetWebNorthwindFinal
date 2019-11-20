@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Models;
 
@@ -10,9 +11,11 @@ namespace Northwind.Controllers
     public class ProductController : Controller
     {
         private INWRepo repo;
-        public ProductController(INWRepo startRepo)
+        private UserManager<AppUser> userManager;
+        public ProductController(INWRepo startRepo, UserManager<AppUser> userManager)
         {
             repo = startRepo;
+            this.userManager = userManager;
         }
         public IActionResult Category()
         {
@@ -43,7 +46,20 @@ namespace Northwind.Controllers
 
         public IActionResult Test()
         {
-            return View();
+            Product product = repo.Products.FirstOrDefault(p => p.ProductId == 1);
+            Customer customer;
+            bool canComment = false;
+            if(User!= null && User.Identity!=null&&User.Identity.Name!=null)
+            {
+                customer = repo.Customers.FirstOrDefault(c => c.Email == User.Identity.Name);
+                if(customer!=null && product!=null)
+                {
+                    canComment = repo.customerPurchasedProduct(customer, product);
+                }
+                //canComment =  repo.customerPurchasedProduct(customer, product);
+            }
+            ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
+            return View(ppvm);
         }
         
     }
