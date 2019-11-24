@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Northwind.Models
 {
@@ -23,7 +24,9 @@ namespace Northwind.Models
         [Required]
         public string Email { get; set; }
 
+        [InverseProperty("Customer")]
         public ICollection<Order> Orders { get; set; }
+        [InverseProperty("Customer")]
         public ICollection<ProductReview> Reviews { get; set; }
     }
 }

@@ -32,6 +32,41 @@ namespace Northwind.Models
             context.SaveChanges();
         }
 
+        public ProductReview addProductReview(ProductReviewJSON productReviewJSON)
+        {
+            int CustomerId = context.Customers.FirstOrDefault(c => c.Email == productReviewJSON.postedBy).CustomerID;
+            int ProductId = productReviewJSON.forProduct;
+            // check for duplicate cart item
+            ProductReview review = context.ProductReviews.FirstOrDefault(pr => pr.ForProduct == ProductId && pr.PostedBy == CustomerId);
+            if (review == null)
+            {
+                review = new ProductReview()
+                {
+                    Title = productReviewJSON.title,
+                    Body = productReviewJSON.body,
+                    Rating = productReviewJSON.rating,
+                    PostedOn = new DateTime(),
+                    ForProduct = context.Products.FirstOrDefault(p => p.ProductId == productReviewJSON.forProduct).ProductId,
+                    PostedBy = context.Customers.FirstOrDefault(c => c.Email == productReviewJSON.postedBy).CustomerID
+                };
+                context.Add(review);
+            }
+            else
+            {
+                // for duplicate cart item, simply update the quantity
+                review.Title = productReviewJSON.title;
+                review.Body = productReviewJSON.body;
+                review.Rating = productReviewJSON.rating;
+            }
+
+            context.SaveChanges();
+            review.Product = context.Products.Find(review.ForProduct);
+            review.Customer = context.Customers.Find(review.PostedBy);
+
+            return review;
+
+        }
+
         public void addReview(ProductReview productReview)
         {
             context.ProductReviews.Add(productReview);

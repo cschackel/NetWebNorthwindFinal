@@ -33,5 +33,38 @@
         $("#rating-value").val($(this).data("value"));  //Set rating value to clicked value
         updateStarIcons();  //Sets Star Values to correct state
     });
+
+    //Call AddRating API When SubmitButton Clicked
+    $('#addReview').on('click', function () {
+        if ($('#User').data('customer').toLowerCase() == "true") {
+            $.ajax({
+                headers: { "Content-Type": "application/json" },
+                url: "../../api/addReview",
+                type: 'post',
+                data: JSON.stringify({
+                    "rating": $("#rating").val(),
+                    "forProduct": $("#forProduct").val(),
+                    "postedBy": $('#User').data('email'),
+                    "title": $("#title").val(),
+                    "body": $('#body').val()
+                }),
+                success: function (response, textStatus, jqXhr) {
+                    toast("Product Added", response.product.productName + " successfully added to cart.");                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toast("Error", "Please try again later.");
+                    console.log("The following error occured: " + jqXHR.status, errorThrown);
+                }
+            });
+        } else {
+            toast("Access Denied", "You must be signed in as a customer to access the cart.");
+        }
+
+    });
+
+    function toast(header, message) {
+        $('#toast_header').html(header);
+        $('#toast_body').html(message);
+        $('#cart_toast').toast({ delay: 2500 }).toast('show');
+    }
     
 });
