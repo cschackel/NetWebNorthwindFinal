@@ -21,8 +21,10 @@ namespace Northwind.Models
 
         void EditCustomer(Customer customer);
         void addCustomer(Customer newCustomer);
-        void addReview(ProductReview productReview);
+        //void addReview(ProductReview productReview);
         bool customerPurchasedProduct(Customer c, Product p);
+
+        ProductReview addProductReview(ProductReviewJSON productReviewJSON);
         
 
     }

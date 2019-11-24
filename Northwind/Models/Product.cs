@@ -20,7 +20,9 @@ namespace Northwind.Models
         public bool Discontinued { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public ICollection<ProductReview> Reviews { get; set; }
-        public ICollection<OrderDetail> OrderDetails { get; set; }
+        [InverseProperty("Product")]
+        public virtual ICollection<ProductReview> Reviews { get; set; }
+        [InverseProperty("Product")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
