@@ -1,5 +1,4 @@
 ﻿$(function () {
-
     //Controlls Hover Over Star Fill-in Look
     $(".rating-star").hover(function () {  //Hover On
         let starValue = $(this).data("value");  //Hovered On Star Number 1-5
