@@ -2,7 +2,7 @@
 @model ProductPageViewModel
 
 @{
-    ViewData["Title"] = "Test";
+    ViewData["Title"] = "Reviews";
 }
 
 <!--Toast For Review Placement-->
@@ -17,7 +17,7 @@
 <!--Div With User Enmail-->
     <div id="User" style="display:none;" data-email="@User.Identity.Name" data-customer="@User.IsInRole("Customer")"></div>
 
-<h1>Test</h1>
+<h1>Product Reviews</h1>
 
 @if (User?.Identity?.IsAuthenticated ?? false)  //User Logged In
 {
@@ -53,19 +53,11 @@ else  //User Not Logged In
 {
     <p>Login to Leave A Review</p>
 }
-<br/> 
-<!--Product Reviews-->
-@foreach(ProductReview r in ViewBag.reviews)
-                    {
-                        <div class="container border border-primary">
-                            <br />
-                            <h5>@r.PostedOn</h5>
-                            <h3>@r.Title @for(int i=0;  i<Decimal.ToInt32(r.Rating); i++) {<i class="fas fa-star rating-star"></i> }</h3>
-                            <p>@r.Body</p>
-                        </div>
-                        <br/>
-                    }
-<!--End of Product Reviews-->
+
+<div id="reviews">
+
+</div>
+
 
 @section formScript {
     <script type="text/javascript" src="/js/commentform.js"></script>

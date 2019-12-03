@@ -1,4 +1,35 @@
 ﻿$(function () {
+
+    function updateReviews() {
+        $.ajax({
+            headers: { "Content-Type": "application/json" },
+            url: "../../api/product/" + $("#forProduct").val()+"/review",
+            type: 'post',
+            success: function (response, textStatus, jqXhr) {
+                console.log("Updating");
+                var output = '';
+                for (let i = 0; i < response.length; i++) {
+                    output += '<div class="container border border-primary"><br>';
+                    output += "<h5>" + response[i].postedOn + "</h5>"
+                        + "<h3>" + response[i].title;
+                    for (let j = 0; j < response[i].rating; j++)
+                    {
+                        output += '<i class="fas fa-star rating-star"></i>';
+                    }
+                    output += "</h3>" + '<p>' + response[i].body + '</p>';
+                    output += '</div><br/>';
+                }
+                $("#reviews").html(output);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //toast("Error", "Please try again later.");
+                console.log("The following error occured: " + jqXHR.status, errorThrown);
+            }
+        });
+    }
+
+    updateReviews();
+
     //Controlls Hover Over Star Fill-in Look
     $(".rating-star").hover(function () {  //Hover On
         let starValue = $(this).data("value");  //Hovered On Star Number 1-5
@@ -49,14 +80,21 @@
                     "body": $('#body').val()
                 }),
                 success: function (response, textStatus, jqXhr) {
-                    toast("Product Added", response.product.productName + " successfully added to cart.");                },
+                    updateReviews();
+                },
                 error: function (jqXHR, textStatus, errorThrown) {
                     toast("Error", "Please try again later.");
                     console.log("The following error occured: " + jqXHR.status, errorThrown);
                 }
             });
+            $("#rating-value").val(0);
+            updateStarIcons();
+            $("#title").val("");
+            $('#body').val("");
+
         } else {
             toast("Access Denied", "You must be signed in as a customer to access the cart.");
+            updateReviews();
         }
 
     });
