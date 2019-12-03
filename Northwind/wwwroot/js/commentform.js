@@ -31,6 +31,7 @@
     //Set rating value based on clicked star
     $(".rating-star").on("click", function () {
         $("#rating-value").val($(this).data("value"));  //Set rating value to clicked value
+        console.log($("#rating-value").val());
         updateStarIcons();  //Sets Star Values to correct state
     });
 
@@ -42,7 +43,7 @@
                 url: "../../api/addReview",
                 type: 'post',
                 data: JSON.stringify({
-                    "rating": $("#rating").val(),
+                    "rating": $("#rating-value").val(),
                     "forProduct": $("#forProduct").val(),
                     "postedBy": $('#User').data('email'),
                     "title": $("#title").val(),
