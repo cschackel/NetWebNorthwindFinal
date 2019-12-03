@@ -42,6 +42,7 @@
                 <button type="button" class="btn btn-dark" id="addReview">Submit</button>
             </form>
         </div>
+  
     }
     else  //User Logged In But Has Not Purchased Item
     {
@@ -52,6 +53,19 @@ else  //User Not Logged In
 {
     <p>Login to Leave A Review</p>
 }
+<br/> 
+<!--Product Reviews-->
+@foreach(ProductReview r in ViewBag.reviews)
+                    {
+                        <div class="container border border-primary">
+                            <br />
+                            <h5>@r.PostedOn</h5>
+                            <h3>@r.Title @for(int i=0;  i<Decimal.ToInt32(r.Rating); i++) {<i class="fas fa-star rating-star"></i> }</h3>
+                            <p>@r.Body</p>
+                        </div>
+                        <br/>
+                    }
+<!--End of Product Reviews-->
 
 @section formScript {
     <script type="text/javascript" src="/js/commentform.js"></script>
