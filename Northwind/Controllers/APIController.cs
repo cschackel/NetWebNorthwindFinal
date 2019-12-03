@@ -35,5 +35,13 @@ namespace Northwind.Controllers
         [HttpPost, Route("api/addReview")]
         public ProductReview Post([FromBody] ProductReviewJSON productReview) => repository.addProductReview(productReview);
 
+        //Gets Reviews for a Product
+        [HttpPost, Route("api/product/{productID}/review")]
+        public IEnumerable<ProductReview> GetReviewsByProductID(int productID)
+        {
+            IEnumerable<ProductReview> reviews = repository.ProductReviews.Where(pr => pr.Product.ProductId == productID).OrderByDescending(pr => pr.PostedOn);
+            return reviews;
+        }
+
     }
 }

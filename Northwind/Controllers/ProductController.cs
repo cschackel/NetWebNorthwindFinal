@@ -44,7 +44,7 @@ namespace Northwind.Controllers
             return View(product);
         }
 
-        public IActionResult Test(int id)
+        public IActionResult ProductReview(int id)
         {
             Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
             // get product reviews ordered by date posted with most recent first
@@ -64,7 +64,7 @@ namespace Northwind.Controllers
             ViewBag.canComment = canComment;
             ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
             
-            return View(ppvm);
+            return View();
         }
 
 

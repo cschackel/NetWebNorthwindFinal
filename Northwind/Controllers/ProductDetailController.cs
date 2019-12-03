@@ -40,7 +40,7 @@ namespace Northwind.Controllers
 
         public IActionResult ProductReviews(int id) {
             decimal rating = _db.ProductReviews.Where(p => p.Product.ProductId == id).Select(r => r.Rating).Average();
-            ViewBag.rating = rating;
+            //ViewBag.rating = rating;
 
             return View(_db.ProductReviews.Where(p => p.Product.ProductId == id));
 
