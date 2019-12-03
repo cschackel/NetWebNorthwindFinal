@@ -9,6 +9,7 @@ namespace Northwind.Models
     {
         public Product Product{get;set;}
         public bool CanComment { get; set; }
+        
 
         public ProductPageViewModel(Product p, bool canComment)
         {
