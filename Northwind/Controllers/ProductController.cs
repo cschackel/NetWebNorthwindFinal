@@ -44,9 +44,9 @@ namespace Northwind.Controllers
             return View(product);
         }
 
-        public IActionResult Test()
+        public IActionResult Test(int id)
         {
-            Product product = repo.Products.FirstOrDefault(p => p.ProductId == 1);
+            Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
             Customer customer;
             bool canComment = false;
             if(User!= null && User.Identity!=null&&User.Identity.Name!=null)
@@ -61,6 +61,7 @@ namespace Northwind.Controllers
             ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
             return View(ppvm);
         }
-        
+
+
     }
 }

@@ -14,7 +14,34 @@ namespace Northwind.Controllers
             _db = db;
         }
 
-        public IActionResult Index(int id) => View(_db.Products.Include(p => p.Category)
+        public IActionResult Index(int id)
+        {
+            
+            IQueryable<decimal> allRatings = _db.ProductReviews.Where(p => p.Product.ProductId == id).Select(r => r.Rating);
+            decimal rating = -1;
+            if (allRatings.Any())
+            {
+                rating = allRatings.Average();
+                ViewBag.rating = rating;
+
+            }
+            else {
+                
+                ViewBag.rating = "Item has not been rated yet" ;
+
+            }
+
+
+            return View(_db.Products.Include(p => p.Category)
             .Where(p => p.Discontinued == false).First(p => p.ProductId == id));
+        }
+
+        public IActionResult ProductReviews(int id) {
+            decimal rating = _db.ProductReviews.Where(p => p.Product.ProductId == id).Select(r => r.Rating).Average();
+            ViewBag.rating = rating;
+
+            return View(_db.ProductReviews.Where(p => p.Product.ProductId == id));
+
+        }
     }
 }
