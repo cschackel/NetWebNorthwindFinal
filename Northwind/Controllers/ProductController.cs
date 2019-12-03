@@ -46,9 +46,9 @@ namespace Northwind.Controllers
 
         public IActionResult Test(int id)
         {
-            Product product = repo.Products.FirstOrDefault(p => p.ProductId == 1);
+            Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
             // get product reviews ordered by date posted with most recent first
-            IEnumerable<ProductReview> reviews = repo.ProductReviews.Where(pr => pr.Product.ProductId == 1).OrderByDescending(pr => pr.PostedOn);
+            IEnumerable<ProductReview> reviews = repo.ProductReviews.Where(pr => pr.Product.ProductId == id).OrderByDescending(pr => pr.PostedOn);
             ViewBag.reviews = reviews;
             Customer customer;
             bool canComment = false;

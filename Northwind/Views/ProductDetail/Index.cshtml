@@ -21,6 +21,10 @@
         <hr />
         <h4>In Stock: @Model.UnitsInStock</h4>
         <hr />
+        @if (ViewBag.starRating != -1)
+        {
+        <h4>Star Score: @for (int i = 0; i < ViewBag.starRating; i++)
+        {<i class="fas fa-star rating-star"></i>}</h4><hr/>}
         <h4>Review Score: @ViewBag.rating</h4>
     </div>
 </div>

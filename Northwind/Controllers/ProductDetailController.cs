@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Northwind.Models;
@@ -22,11 +23,12 @@ namespace Northwind.Controllers
             if (allRatings.Any())
             {
                 rating = allRatings.Average();
-                ViewBag.rating = rating;
-
+                ViewBag.starRating = Math.Round(rating, MidpointRounding.AwayFromZero);
+                ViewBag.rating = rating.ToString("N1");
+                
             }
             else {
-                
+                ViewBag.starRating = -1;
                 ViewBag.rating = "Item has not been rated yet" ;
 
             }
