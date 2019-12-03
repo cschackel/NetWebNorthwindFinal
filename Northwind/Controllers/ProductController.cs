@@ -61,6 +61,7 @@ namespace Northwind.Controllers
                 }
                 //canComment =  repo.customerPurchasedProduct(customer, product);
             }
+            ViewBag.canComment = canComment;
             ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
             
             return View(ppvm);

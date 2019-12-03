@@ -36,7 +36,6 @@ namespace Northwind.Models
         {
             int CustomerId = context.Customers.FirstOrDefault(c => c.Email == productReviewJSON.postedBy).CustomerID;
             int ProductId = productReviewJSON.forProduct;
-            // check for duplicate cart item
             ProductReview review = context.ProductReviews.FirstOrDefault(pr => pr.ForProduct == ProductId && pr.PostedBy == CustomerId);
             if (review == null)
             {
@@ -45,7 +44,7 @@ namespace Northwind.Models
                     Title = productReviewJSON.title,
                     Body = productReviewJSON.body,
                     Rating = productReviewJSON.rating,
-                    PostedOn = new DateTime(),
+                    PostedOn = DateTime.Now,
                     ForProduct = context.Products.FirstOrDefault(p => p.ProductId == productReviewJSON.forProduct).ProductId,
                     PostedBy = context.Customers.FirstOrDefault(c => c.Email == productReviewJSON.postedBy).CustomerID
                 };
@@ -53,15 +52,16 @@ namespace Northwind.Models
             }
             else
             {
-                // for duplicate cart item, simply update the quantity
                 review.Title = productReviewJSON.title;
                 review.Body = productReviewJSON.body;
                 review.Rating = productReviewJSON.rating;
+                review.PostedOn = DateTime.Now;
             }
 
             context.SaveChanges();
-            review.Product = context.Products.Find(review.ForProduct);
-            review.Customer = context.Customers.Find(review.PostedBy);
+            review.Customer = null;
+            //review.Product = context.Products.Find(review.ForProduct);
+            //review.Customer = context.Customers.Find(review.PostedBy);
 
             return review;
 
