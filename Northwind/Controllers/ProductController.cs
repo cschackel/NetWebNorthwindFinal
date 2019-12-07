@@ -44,9 +44,12 @@ namespace Northwind.Controllers
             return View(product);
         }
 
-        public IActionResult Test()
+        public IActionResult ProductReview(int id)
         {
-            Product product = repo.Products.FirstOrDefault(p => p.ProductId == 1);
+            Product product = repo.Products.FirstOrDefault(p => p.ProductId == id);
+            // get product reviews ordered by date posted with most recent first
+            IEnumerable<ProductReview> reviews = repo.ProductReviews.Where(pr => pr.Product.ProductId == id).OrderByDescending(pr => pr.PostedOn);
+            ViewBag.reviews = reviews;
             Customer customer;
             bool canComment = false;
             if(User!= null && User.Identity!=null&&User.Identity.Name!=null)
@@ -60,8 +63,10 @@ namespace Northwind.Controllers
             }
             ViewBag.canComment = canComment;
             ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
-            return View(ppvm);
+            ViewBag.ProductID = id;
+            return View();
         }
-        
+
+
     }
 }
