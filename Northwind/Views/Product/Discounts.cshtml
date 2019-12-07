@@ -1,0 +1,15 @@
+﻿@using Northwind.Models
+@model IEnumerable<Discount>
+@{
+    ViewData["Title"] = "Discounts";
+}
+
+<h1>Discounts</h1>
+
+
+<div class="list-group">
+    @foreach (Discount d in Model)
+    {
+    <a href="#" class="list-group-item list-group-item-action list_btn">@d.Title: @d.Description<br>Valid Until: @d.EndTime.ToString("MM/dd/yyyy")<br>Discount Ammount: @(d.DiscountPercent * 100)% Off || Code: @d.Code </a>
+    }
+</div>
