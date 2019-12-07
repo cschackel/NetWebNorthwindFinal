@@ -63,7 +63,9 @@ namespace Northwind.Controllers
             }
             ViewBag.canComment = canComment;
             ProductPageViewModel ppvm = new ProductPageViewModel(product,canComment);
+
             ViewBag.ProductID = id;
+           
             return View();
         }
 

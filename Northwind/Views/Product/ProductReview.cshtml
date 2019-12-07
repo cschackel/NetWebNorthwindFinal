@@ -26,6 +26,7 @@
     {
         <div class="container">
             <form>
+
                 <input hidden type="number" value="@ViewBag.ProductID" name="forProduct" id="forProduct" />
                 <div class="form-group">
                     <label for="title">Rating Title</label>
@@ -34,6 +35,7 @@
                 <div class="form-group">
                     <label for="body">Comment:</label>
                     <textarea class="form-control-plaintext border" name="body" id="body" required pattern=".{1,}"></textarea>
+
                 </div>
                 <input type="text" hidden id="addedBy" value="@User?.Identity?.Name?"/>
                 <div id="star-area">
@@ -43,13 +45,11 @@
                 <button type="button" class="btn btn-dark" id="addReview">Submit</button>
             </form>
         </div>
-
   
     }
     else  //User Logged In But Has Not Purchased Item
     {
         <p>Purchase This Item to Leave A Review</p>
-
     }
 }
 else  //User Not Logged In

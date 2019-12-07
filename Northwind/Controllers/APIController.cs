@@ -53,5 +53,13 @@ namespace Northwind.Controllers
             return reviews;
         }
 
+        //Gets Reviews for a Product
+        [HttpPost, Route("api/product/{productID}/review")]
+        public IEnumerable<ProductReview> GetReviewsByProductID(int productID)
+        {
+            IEnumerable<ProductReview> reviews = repository.ProductReviews.Where(pr => pr.Product.ProductId == productID).OrderByDescending(pr => pr.PostedOn);
+            return reviews;
+        }
+
     }
 }
