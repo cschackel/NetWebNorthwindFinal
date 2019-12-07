@@ -3,7 +3,7 @@
     function updateReviews() {
         $.ajax({
             headers: { "Content-Type": "application/json" },
-            url: "../../api/product/" + $("#forProduct").val()+"/review",
+            url: "../../api/product/" + $("#Product").data("id")+"/review",
             type: 'post',
             success: function (response, textStatus, jqXhr) {
                 console.log("Updating");
