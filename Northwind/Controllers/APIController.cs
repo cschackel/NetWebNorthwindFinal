@@ -33,7 +33,25 @@ namespace Northwind.Controllers
 
         //Posts A Product Review
         [HttpPost, Route("api/addReview")]
-        public ProductReview Post([FromBody] ProductReviewJSON productReview) => repository.addProductReview(productReview);
+        public ProductReview Post([FromBody] ProductReviewJSON productReview)
+        {
+            if(productReview.title!=null && !productReview.title.Equals("") && productReview.body!=null && !productReview.body.Equals(""))
+            {
+                return repository.addProductReview(productReview);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        //Gets Reviews for a Product
+        [HttpPost, Route("api/product/{productID}/review")]
+        public IEnumerable<ProductReview> GetReviewsByProductID(int productID)
+        {
+            IEnumerable<ProductReview> reviews = repository.ProductReviews.Where(pr => pr.Product.ProductId == productID).OrderByDescending(pr => pr.PostedOn);
+            return reviews;
+        }
 
         //Gets Reviews for a Product
         [HttpPost, Route("api/product/{productID}/review")]

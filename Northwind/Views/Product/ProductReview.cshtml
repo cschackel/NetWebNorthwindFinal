@@ -16,6 +16,7 @@
     </div>
 <!--Div With User Enmail-->
     <div id="User" style="display:none;" data-email="@User.Identity.Name" data-customer="@User.IsInRole("Customer")"></div>
+    <div id="Product" style="display:none;" data-id="@ViewBag.ProductID"></div>
 
 <h1>Product Reviews</h1>
 
@@ -25,14 +26,16 @@
     {
         <div class="container">
             <form>
-                <input hidden type="number" value="1" @{/*Change Value to Product ID*/} name="forProduct" id="forProduct" />
+
+                <input hidden type="number" value="@ViewBag.ProductID" name="forProduct" id="forProduct" />
                 <div class="form-group">
                     <label for="title">Rating Title</label>
-                    <input type="text" class="form-control" id="title" name="title"/>
+                    <input type="text" class="form-control" id="title" name="title" required pattern=".{1,}"/>
                 </div>
                 <div class="form-group">
                     <label for="body">Comment:</label>
-                    <textarea class="form-control-plaintext border" name="body" id="body"></textarea>
+                    <textarea class="form-control-plaintext border" name="body" id="body" required pattern=".{1,}"></textarea>
+
                 </div>
                 <input type="text" hidden id="addedBy" value="@User?.Identity?.Name?"/>
                 <div id="star-area">
@@ -52,6 +55,7 @@
 else  //User Not Logged In
 {
     <p>Login to Leave A Review</p>
+
 }
 
 <div id="reviews">
